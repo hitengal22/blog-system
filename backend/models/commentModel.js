@@ -3,7 +3,7 @@ const db = require('../db');
 
 // Get comments for a post
 exports.getCommentsByPostId = (postId) => {
-  return db.query(`
+    return db.query(`
     SELECT id, name, comment, created_at
     FROM comments
     WHERE post_id = ?
@@ -13,7 +13,7 @@ exports.getCommentsByPostId = (postId) => {
 
 // Add a new comment
 exports.addComment = (postId, name, comment) => {
-  return db.query(`
+    return db.query(`
     INSERT INTO comments (post_id, name, comment)
     VALUES (?, ?, ?)
   `, [postId, name, comment]);

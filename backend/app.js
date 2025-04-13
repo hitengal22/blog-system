@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const postsRoutes = require('./routes/posts');
 const commentsRoutes = require('./routes/comments');
+const contactRoutes = require('./routes/contact');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,6 +16,7 @@ app.use(express.json());
 // Routes
 app.use('/api/v1/posts', postsRoutes);
 app.use('/api/v1/comments', commentsRoutes);
+app.use('/api/v1/contact', contactRoutes);
 
 // Root Endpoint
 app.get('/', (req, res) => {

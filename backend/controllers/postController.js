@@ -4,12 +4,13 @@ const Post = require('../models/postModel');
 exports.getAllPosts = async (req, res) => {
     // Extract page and limit from query parameters, with default values
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 5;
+    const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit; // Calculate the starting point for fetching posts
+    const search = req.query.search || ''; // Extract search query from request
 
     try {
         // Fetch posts and the total count of posts from the database
-        const [posts] = await Post.getAllPosts(limit, offset);
+        const [posts] = await Post.getAllPosts(limit, offset, search);
         const [countResult] = await Post.getTotalPostCount();
         const total = countResult[0].total; // Total number of posts in the database
 
@@ -53,7 +54,9 @@ exports.searchPosts = async (req, res) => {
         const [results] = await Post.searchPosts(query);
 
         // Respond with the search results
-        res.json(results);
+        res.status(200).json({
+            data: results
+        });
     } catch (err) {
         res.status(500).json({ error: 'Search failed', details: err });
     }

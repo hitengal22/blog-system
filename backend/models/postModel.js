@@ -2,10 +2,12 @@
 const db = require('../db');
  ``
 // Get all posts with pagination
-exports.getAllPosts = (limit, offset) => {
+exports.getAllPosts = (limit, offset, search) => {
+  const searchTerm = `WHERE (title LIKE "%${search}%" OR author LIKE "%${search}%")`;
   return db.query(`
-    SELECT posts.id, title, content, created_at, author
+    SELECT posts.id, title, content, created_at, author, slug
     FROM posts
+    ${search ? searchTerm : ''}
     ORDER BY posts.created_at DESC
     LIMIT ? OFFSET ?
   `, [limit, offset]);
@@ -20,7 +22,7 @@ exports.getPostById = (id) => {
   return db.query(`
     SELECT posts.id, title, content, created_at, author
     FROM posts
-    WHERE posts.id = ?
+    WHERE posts.slug = ?
   `, [id]);
 };
 
