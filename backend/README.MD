@@ -26,10 +26,11 @@ backend/ ├── .env # Environment variables ├── app.js # Main applicat
    ```
 3. Set env:
   - Create a .env file in the backend/ directory.
-  - run ```sh 
-        npm run seed:post 
-        ``` 
-        then 
-        ```sh 
-        npm run seed:comment 
-        ```
+  - run 
+    ```sh 
+    npm run seed:post 
+    ``` 
+    then 
+    ```sh 
+    npm run seed:comment 
+    ```
